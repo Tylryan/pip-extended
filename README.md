@@ -28,8 +28,8 @@
 - Nightly
     - `wget https://github.com/Tylryan/pip-extended/raw/nightliest/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
 
-# Updating Asu
-To update to the most recent version of Asu run:
+# Updating Pipe
+To update to the most recent version of Pipe run:
 - `pipe pipe update`
-# Uninstall Asu
+# Uninstall Pipe
 - `pipe pipe uninstall`
