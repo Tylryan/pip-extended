@@ -16,10 +16,11 @@ install (){
     pyinstaller src/pipe.py -F -n pipe_dev || exit 1
     mv dist/pipe_dev $home/.python_environs/default/bin || exit 1
     pipe_dev app install pipe  || exit 1 ;
-    # # echo
-    # # echo
+    echo
+    echo
     pipe || exit 1 ;
-    # rm -rf ~/pipe_dev || exit 1 ;
+    rm -rf ~/pipe_dev || exit 1 ;
+    cd
     exit 0
 }
 
