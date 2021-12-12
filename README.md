@@ -23,10 +23,10 @@
 - `git clone https://github.com/Tylryan/pip-extended.git ~/pipe_dev && bash ~/pipe_dev/install.sh && cd`
 # Binary Install
 - Stable-ish
-    - `wget https://github.com/Tylryan/pip-extended/raw/main/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
+    - `wget https://github.com/Tylryan/pip-extended/raw/main/stable_binary_install.sh && chmod 744 stable_binary_install.sh && bash stable_binary_install.sh`
 
 - Nightly
-    - `wget https://github.com/Tylryan/pip-extended/raw/nightliest/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
+    - `wget https://github.com/Tylryan/pip-extended/raw/main/nightly_binary_install.sh && chmod 744 nightly_binary_install.sh && bash nightly_binary_install.sh`
 
 # Updating Pipe
 To update to the most recent version of Pipe run:
