@@ -21,6 +21,8 @@
 
 # Install And Build (Recommended)
 - `git clone https://github.com/Tylryan/pip-extended.git ~/pipe_dev && bash ~/pipe_dev/install.sh && cd`
+# Binary Install
+- `wget -O pipe https://github.com/Tylryan/pip-extended/raw/nightliest/dist/pipe_dev`
 
 # Updating Asu
 To update to the most recent version of Asu run:
