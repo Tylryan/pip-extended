@@ -25,8 +25,8 @@ def env():
 @click.option("-p","--python-version",  default = "", type=float,
 help = """
 Specify which python version you would like to install
-asu help python will list all python version installed.
-EXAMPLE: asu env new <env-name> -p 3.6
+pipe help python will list all python version installed.
+EXAMPLE: pipe env new <env-name> -p 3.6
 """)
 def new_env(env_name, python_version):
     em.create_environment(env_name,python_version)

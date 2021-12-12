@@ -48,17 +48,17 @@ def run():
     package_handler.run_main_file()
 
 
-@package_cli.group(help="Update or Uninstall ASU")
+@package_cli.group(help="Update or Uninstall PIPE")
 def pipe():
     pass
 
 
-@pipe.command(help="Update ASU")
+@pipe.command(help="Update PIPE")
 def update():
     package_handler.update_asu()
 
 
-@pipe.command(help="Uninstall ASU")
+@pipe.command(help="Uninstall PIPE")
 def uninstall():
     package_handler.uninstall_asu()
 

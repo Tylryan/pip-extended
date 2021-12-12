@@ -5,7 +5,7 @@ import os
 
 
 setup(
-    name='pipe extended',
+    name='pip extended',
     version='0.1.0',
     include_package_data=False,
     packages=find_packages(),
@@ -14,9 +14,9 @@ setup(
         "requests", "virtualenvwrapper"]
 )
 
-if os.path.exists("~/.config/asu") == False:
-    print("Create a config file in ~/.config/asu")
+if os.path.exists("~/.config/pipe") == False:
+    print("Create a config file in ~/.config/pipe")
     # Create directory for the config file
-    os.system('mkdir ~/.config/asu')
+    os.system('mkdir ~/.config/pipe')
     # creating the config file
-    os.system("cp src/config.ini ~/.config/asu")
+    os.system("cp src/config.ini ~/.config/pipe")
