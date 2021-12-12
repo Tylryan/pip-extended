@@ -20,7 +20,7 @@
 # Python3.6 is required before installing
 
 # Install And Build (Recommended)
-- `git clone https://github.com/Tylryan/pip-extended.git ~/pipe_dev && bash ~/pip_dev/install.sh && cd`
+- `git clone https://github.com/Tylryan/pip-extended.git ~/pipe_dev && bash ~/pipe_dev/install.sh && cd`
 
 # Updating Asu
 To update to the most recent version of Asu run:
