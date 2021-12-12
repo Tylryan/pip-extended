@@ -22,7 +22,11 @@
 # Install And Build (Recommended)
 - `git clone https://github.com/Tylryan/pip-extended.git ~/pipe_dev && bash ~/pipe_dev/install.sh && cd`
 # Binary Install
-- `wget https://github.com/Tylryan/pip-extended/raw/nightliest/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
+- Stable-ish
+    - `wget https://github.com/Tylryan/pip-extended/raw/main/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
+
+- Nightly
+    - `wget https://github.com/Tylryan/pip-extended/raw/nightliest/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
 
 # Updating Asu
 To update to the most recent version of Asu run:
