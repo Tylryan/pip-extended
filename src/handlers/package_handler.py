@@ -89,18 +89,18 @@ Move this file inside your top most project directory.
 		os.system(f'pyinstaller {main_file_location} -F -n {name}')
 
 	def uninstall_asu(self):
-		os.system("rm ~/.local/bin/asu")
+		os.system("rm ~/.local/bin/pipe")
 
 	def update_asu(self):
-		"""Updates auto-setup (asu)"""
+		"""Updates auto-setup (pipe)"""
 		# Install
-		os.system("wget -O ~/asu \
-				https://github.com/Tylryan/auto-setup/raw/main/dist/asud \
-				&& chmod 744 ~/asu")
+		os.system("wget -O ~/pipe \
+				https://github.com/Tylryan/pip-extended/raw/main/dist/pipe_dev \
+				&& chmod 744 ~/pipe")
 		# Remove old
-		os.system("rm ~/.local/bin/asu")
+		os.system("rm ~/.local/bin/pipe")
 		# Move In New
-		os.system("mv ~/asu ~/.local/bin")
+		os.system("mv ~/pipe ~/.local/bin")
 
 	# TODO Default app name == main.py name
 	def install_app(self, app_name, dev_environment=""):
@@ -141,7 +141,7 @@ Move this file inside your top most project directory.
 		installed_apps = self.list_installed_apps()
 		if installed_apps.__contains__(app_name) != True:
 			print(f"Error: {app_name} is either misspelled or not installed")
-			print("Run `asu app list` to see all installed apps")
+			print("Run `pipe app list` to see all installed apps")
 			return
 		new_list = list(filter(lambda x: x != app_name, installed_apps))
 		new_list_as_string = ' '.join(new_list)

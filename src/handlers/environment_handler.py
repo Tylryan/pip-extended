@@ -17,7 +17,7 @@ class Environment_Handler:
         self.home = os.popen("echo $HOME").read().strip()
         self.user = os.popen("echo $USER").read().strip()
         # or "config.ini"
-        self.config_file_location = f"/home/{self.user}/.config/asu/config.ini" or "../config.ini"
+        self.config_file_location = f"/home/{self.user}/.config/pipe/config.ini" or "../config.ini"
         self.env_location = ""
         self.current_env_location = os.popen( "echo $VIRTUAL_ENV").read().strip()
         self.python_version = os.popen("python --version | cut -d'.' -f1-2 | tr -d ' '").read().strip().lower()

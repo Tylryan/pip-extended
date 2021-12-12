@@ -1,7 +1,0 @@
-click
-virtualenv
-pyinstaller
-rich
-beautifulsoup4
-requests
-virtualenvwrapper

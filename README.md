@@ -1,34 +1,35 @@
-# Asu Python Package Manager
+# Pipe Python Package Manager
 ## About
 ### Imagine Rust's **Cargo** or Javascript's **NPM**
     - I'm trying give modern functionality to Pip
 ## Common Commands
 ## Run Python Program From Anywhere In The Project Tree
-- `asu run`
+- `pip run`
 ## Search Pip Repository for Packages
-- `asu search <package>`
+- `pipe search <package>`
 ## Create A Virtual Environment
-- `asu env new <env-name>`
+- `pipe env new <env-name>`
 ## Build A Python Executable File From Anywhere In The Project Tree
-- `asu app build`
+- `pipe app build`
 ## Create A Setup.py File
-- `asu app setup`
+- `pipe app setup`
 ## Pip (Un)Install Packages
-- `asu (un)install <package-name>`
+- `pipe (un)install <package-name>`
 
 
 # Python3.6 is required before installing
 
 # Install And Build (Recommended)
-- `git clone https://github.com/Tylryan/auto-setup.git ~/asud && bash ~/asud/install.sh && cd`
+- `git clone https://github.com/Tylryan/pip-extended.git ~/pipe_dev && bash ~/pipe_dev/install.sh && cd`
+# Binary Install
+- Stable-ish
+    - `wget https://github.com/Tylryan/pip-extended/raw/main/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
 
-# Install Asu (Executable Only)
-- `wget -O ~/requirements.txt https://github.com/Tylryan/auto-setup/raw/main/requirements.txt && pip install -r ~/requirements.txt --user && rm ~/requirements.txt`
-- `wget -O ~/.local/bin/asu https://github.com/Tylryan/auto-setup/raw/main/dist/asud && chmod 744 ~/.local/bin/asu`
+- Nightly
+    - `wget https://github.com/Tylryan/pip-extended/raw/nightliest/binary_install.sh && chmod 744 binary_install.sh && bash binary_install.sh`
 
-
-# Updating Asu
-To update to the most recent version of Asu run:
-- `asu asu update`
-# Uninstall Asu
-- `asu asu uninstall`
+# Updating Pipe
+To update to the most recent version of Pipe run:
+- `pipe pipe update`
+# Uninstall Pipe
+- `pipe pipe uninstall`
