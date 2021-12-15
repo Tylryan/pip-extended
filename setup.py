@@ -6,7 +6,7 @@ import os
 
 setup(
     name='pip extended',
-    version='0.1.0',
+    version='0.1.1',
     include_package_data=False,
     packages=find_packages(),
     install_requires=[
