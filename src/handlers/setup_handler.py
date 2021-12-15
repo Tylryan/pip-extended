@@ -1,15 +1,15 @@
 #!/usr/bin/python3.9
 
-from setuptools import find_packages
-import os
-from time import sleep
-import subprocess as sp
 import json
+import os
+import subprocess as sp
+from typing import List, Tuple
 
+from setuptools import find_packages
 
+from src import snippets
 from src.handlers.environment_handler import Environment_Handler
 from src.handlers.package_handler import Package_Handler
-from src import snippets
 
 environment_handler = Environment_Handler()
 environment_handler.read_config()
@@ -28,19 +28,19 @@ class Setup_Handler:
 
     # set_up_existing_project
     # TODO set up a verbose option for Click
-    def set_up_project(self, class_snippet, verbose=False):
+    def set_up_project(self, class_snippet: bool, verbose=False) -> None:
         self.create_requirements_file()
         self.create_setup(self.get_info(), class_snippet)
         self.install_project(verbose)
 
-    def new_project(self, project_name, class_snippet,with_env, unit_testing):
+    def new_project(self, project_name: str, class_snippet: bool, with_env: bool, unit_testing: bool) -> None:
         """ Create project structure from scratch """
         project_name = project_name.lower().replace(" ", "_").replace("-", "_")
 
-        if with_env == True: environment_handler.create_environment(project_name)
-        
-        bare_bones_function_snippet = ""
-        bare_bones_function_snippet = f"""\
+        if with_env:
+            environment_handler.create_environment(project_name)
+
+        bare_bones_function_snippet: str = f"""\
 #!/usr/bin/python3
 
 def main():
@@ -63,8 +63,8 @@ class {project_name.title()}:
 if __name__ == "__main__":
  {project_name.title()}.main()
             """
-        os.system(f"mkdir -p {project_name}/src && \
-                touch {project_name}/src/{project_name}.py")
+        os.system(
+            f"mkdir -p {project_name}/src && touch {project_name}/src/{project_name}.py")
         os.system(f"touch {project_name}/config.json")
         with open(f"{project_name}/config.json", "w") as file:
             config_json_data = {
@@ -73,9 +73,10 @@ if __name__ == "__main__":
             json.dump(config_json_data, file)
         file.close()
 
-        if unit_testing == True: self.setup_unit_testing(project_name)
+        if unit_testing:
+            self.setup_unit_testing(project_name)
 
-        if class_snippet == False:
+        if class_snippet is False:
             with open(f"{project_name}/src/{project_name}.py", "w") as file:
                 file.write(bare_bones_function_snippet)
                 file.close()
@@ -84,7 +85,7 @@ if __name__ == "__main__":
                 file.write(bare_bones_class_snippet)
                 file.close()
 
-    def get_info(self):
+    def get_info(self) -> None:
         """ Retrieves Project Information from the user and returns it in a Tuple """
 
         executable_name = input("cli executable DEV name: ").lower().replace(" ", "_") or \
@@ -109,55 +110,56 @@ if __name__ == "__main__":
         print("\n")
         self.project_details = project_details
 
-    def create_setup(self, project_details, class_snippet):
+    def create_setup(self, project_details: Tuple[str,str,str,str,str,str,str,str], class_snippet: bool) -> None:
         """ Creates a setup.py file based of the given information """
-
         template = ""
-        if class_snippet == True:
+        if class_snippet: 
             template = snippets.class_setup(self.project_details)
-        else:
+        else: 
             template = snippets.function_setup(self.project_details)
 
         file = open("setup.py", "w")
         file.write(template)
         file.close()
 
-    def get_install_requires(self):
+    def get_install_requires(self) -> List[str]:
         """ Returns the current environment's installed Pip packages """
-        command = f"pip freeze | grep -Ev '(#|home|git)' | cut -d'=' -f1"
-        install_requires = os.popen(command).read().split("\n")[:-1]
+        command: str = "pip freeze | grep -Ev '(#|home|git)' | cut -d'=' -f1"
+        install_requires: List[str] = os.popen(command).read().split("\n")[:-1]
         return install_requires
 
-    def create_requirements_file(self):
-        command = f"pip freeze | grep -Ev '(#|home|git)' | cut -d'=' -f1 > requirements.txt"
+    def create_requirements_file(self) -> None:
+        command: str = "pip freeze | grep -Ev '(#|home|git)' | cut -d'=' -f1 > requirements.txt"
         os.system(command)
 
-    def install_project(self, verbose=False):
+    def install_project(self, verbose: bool=False):
         """ Pip installs the project """
         command = "python setup.py develop . 1> /dev/null"
-        if verbose:
+        # TODO figure out this command thing
+        if verbose: 
             command = "pip install -e ."
         success = os.system("pip install -e .")
         if success != 0:
             sp.sys.exit()
 
     # TODO Code copied. Figure out how to not do that
-    def find_main_dir(self):
-        dir_contents = os.listdir()
-        is_main_dir = dir_contents.__contains__('src')
-        while is_main_dir == False:
+    def find_main_dir(self) -> str:
+        """Finds the main directory of the project tree"""
+        dir_contents: List[str] = os.listdir()
+        is_main_dir: bool = dir_contents.__contains__('src')
+        while is_main_dir is False:
             os.chdir("..")
             dir_contents = os.listdir()
             is_main_dir = dir_contents.__contains__('src')
-        cwd = os.getcwd()
+        cwd: str = os.getcwd()
         return cwd
 
-    def setup_unit_testing(self, project_name):
+    def setup_unit_testing(self, project_name: str) -> None:
         # main_directory = self.find_main_dir()
         os.system(f"mkdir {project_name}/test")
         os.system(f"touch {project_name}/test/test_default.py")
 
-        test_snippet = snippets.test_setup()
+        test_snippet: str = snippets.test_setup()
 
         file = open(f"{project_name}/test/test_default.py", "w")
         file.write(test_snippet)
@@ -165,17 +167,18 @@ if __name__ == "__main__":
 
         # os.system
 
-    def run_tests(self):
+    def run_tests(self) -> None:
         """
         Runs any test in your test/ directory whose file starts with "test"
         Can be run from anywhere in your project directory
         """
-        main_directory = self.find_main_dir()
+        main_directory: str = self.find_main_dir()
         # For this to work you have to have __init__.py in all subdirectories of test/
-        command = f"python -m unittest discover test"
+        command:str = "python -m unittest discover test"
         os.system(command)
+
 
 if __name__ == "__main__":
     sh = Setup_Handler()
-    sh.new_project("Hello THERE", False)
+    # sh.new_project("Hello THERE", False)
     print(sh.find_main_dir())
