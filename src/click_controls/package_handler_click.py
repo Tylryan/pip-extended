@@ -3,6 +3,7 @@ import click
 from src.handlers.package_handler import Package_Handler
 from src.handlers.environment_handler import Environment_Handler
 from src.handlers.package_repo_handler import Package_Repo_Handler
+# from src.handlers.package_search_handler import Package_Search_Handler
 
 
 environment_handler = Environment_Handler()
@@ -39,6 +40,8 @@ def uninstall(package_name, env_name):
               help="Specify the number of pages to search")
 def search(package_name, pages):
     # package_handler.search_repository(package_name)
+    # package_search_handler = Package_Search_Handler()
+    # package_search_handler.refined_search(package_name, pages)
     package_repo_handler = Package_Repo_Handler()
     package_repo_handler.search(package_name, pages)
 
