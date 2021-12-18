@@ -1,14 +1,13 @@
 #!/usr/bin/python3
-
-from bs4 import BeautifulSoup
-import requests
-import re
+import asyncio
+import json
+import os
 from pprint import pprint
-import pandas as pd
-
-pd.get_option("display.max_rows", 999)
-# pd.set_option("display.max_colwidth", 85)
-# pd.set_option("display.colheader_justify", "center")
+import re
+from rich.console import Console
+from rich.table import Table
+from rich import box
+from time import sleep
 
 
 class Package_Search_Handler:
@@ -18,26 +17,28 @@ class Package_Search_Handler:
         self.base_search = {}
 
     def refined_search(self, reg_search, pages=2):
-        # for i in range(pages):
-        #     base_search = self._fetch_packages(
-        #         matching_results, search, i)
-        # self.base_search.set_index('Name', inplace=True)
-        # self._matching_searches1(self.base_search, reg_search)
-        # return self.matching_results
+        # search_json = os.popen(
+        #     f"scala ./pip-search.jar {reg_search}").read().strip()
+        # search_dictionary = json.loads(search_json)
+        # self.prettify_search(search_dictionary)
+        print(os.getcwd())
+        return
 
-        search_word = self._remove_regex(reg_search)
-        self._fetch_packages1(
-            self.matching_results, search_word, pages)
-        self._matching_searches1(search_word)
-        print(self.matching_results)
+    def prettify_search(self, package_info_dictionary):
+        table = Table(box=box.ROUNDED)
+        table.add_column('Package', style='bold blue', no_wrap=True)
+        table.add_column('Version', style='blue')
+        # table.add_column('Released', style='bold green')
+        table.add_column('Description', style='bold cyan')
+        for (package_name, package_info) in package_info_dictionary.items():
+            package = package_name
+            version = package_info["Version"]
+            description = package_info["Description"]
+            table.add_row(f'{package}', version, description)
 
-        # search_word = self._remove_regex(reg_search)
-        # base_search = self._fetch_packages(
-        #     self.matching_results, search_word, pages)
-        # self._matching_searches(base_search, reg_search)
-        # print(base_search)
-
-        # pprint(self.matching_results)
+        console = Console()
+        console.print(table)
+        return
 
     def _remove_regex(self, search):
         """Allows you to used regex in your package search"""
@@ -49,58 +50,6 @@ class Package_Search_Handler:
                 plain_search += i
 
         return plain_search
-
-    def _fetch_packages1(self, matching_hm, search, page):
-        """Does a basic search without regex"""
-        html_doc = self._make_request(search, page)
-
-        all_names = html_doc.find_all(class_="package-snippet__name")
-        all_versions = html_doc.find_all(class_="package-snippet__version")
-        all_releases = html_doc.find_all(class_="package-snippet__released")
-        all_descriptions = html_doc.find_all(
-            class_="package-snippet__description")
-
-        all_names_strings = [x.string.strip() for x in all_names]
-        all_versions_strings = [x.string.strip() for x in all_versions]
-        all_releases_strings = [x.string.strip() for x in all_releases]
-        all_description_strings = [x.string for x in all_descriptions]
-
-        self.base_search = pd.DataFrame({
-            "Name": all_names_strings,
-            "Description": all_description_strings,
-            "Version": all_versions_strings
-        })
-
-    def _fetch_packages(self, matching_hm, search, page):
-        """Does a basic search without regex"""
-        html_doc = self._make_request(search, page)
-
-        all_names = html_doc.find_all(class_="package-snippet__name")
-        all_versions = html_doc.find_all(class_="package-snippet__version")
-        all_releases = html_doc.find_all(class_="package-snippet__released")
-        all_descriptions = html_doc.find_all(
-            class_="package-snippet__description")
-
-        all_names_strings = [x.string.strip() for x in all_names]
-        all_versions_strings = [x.string.strip() for x in all_versions]
-        all_releases_strings = [x.string.strip() for x in all_releases]
-        all_description_strings = [x.string for x in all_descriptions]
-
-        hm = {
-            "name": all_names_strings,
-            "version": all_versions_strings,
-            "release": all_releases_strings,
-            "description": all_description_strings
-        }
-        return hm
-
-    def _make_request(self, search, page):
-        r = requests.get(f'https://pypi.org/search/?q={search}&page={page}')
-        status = r.status_code
-        print(f"STAUS REQUEST: {status}")
-        html_text = r.text
-        doc = BeautifulSoup(html_text, "html.parser")
-        return doc
 
     def _matching_searches1(self, reg_search):
         df = self.base_search
@@ -128,7 +77,7 @@ class Package_Search_Handler:
 
 if __name__ == "__main__":
     package_repo = Package_Search_Handler()
-    reg_search = "pandas$"
+    reg_search = "pandas"
     pages = 1
     package_repo.refined_search(reg_search)
     # package_repo.refined_search(reg_search, pages)
