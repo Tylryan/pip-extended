@@ -1,7 +1,8 @@
-# Pipe Python Package Manager
+# Pipe (pip extended)
+Only works for Linux when I can get it to work :)
+![Pipe Example](./assets/basic-functionality.gif)
 ## About
-### Imagine Rust's **Cargo** or Javascript's **NPM**
-    - I'm trying give modern functionality to Pip
+### Imagine Rust's **Cargo** or Javascript's **NPM** for Python
 ## Common Commands
 ## Run Python Program From Anywhere In The Project Tree
 - `pip run`
